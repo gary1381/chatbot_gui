@@ -39,6 +39,7 @@ def main():
     # A place to draw the chat history
     history = st.container()
 
+    # Change this url if it is changed
     url = 'https://ef9b-34-126-178-0.ngrok.io/chatbot'
 
 
