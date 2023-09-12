@@ -40,7 +40,8 @@ def main():
     history = st.container()
 
     # Change this url if it is changed
-    url = 'https://ef9b-34-126-178-0.ngrok.io/chatbot'
+    url = 'https://e94b-34-29-123-139.ngrok.io/chatbot'
+    
 
 
     with st.form("Chat"):
