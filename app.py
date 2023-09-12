@@ -143,7 +143,7 @@ def main():
 # )
 
 
-st.title("GPT Demo for Bluestem Brands")
+st.title("Chatbot Demo for Bluestem Brands")
 
 key = st.text_input("Your Password")
 if key != "hackathon":
@@ -153,4 +153,4 @@ else:
     main()
 
 
-st.info("Created by Gary Xiao, for hackathon at Bluestem Brands")
+st.info("Created by Gary Xiao, Shawn Liu, Satyabrata Samal and Jixiong Han from CDS team for Hackathon at Bluestem Brands")
