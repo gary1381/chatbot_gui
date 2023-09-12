@@ -5,7 +5,7 @@
 import streamlit as st
 import json
 import requests
-from streamlit_chat import message
+# from streamlit_chat import message
 
 # Set up Session State
 if "messages" not in st.session_state:
