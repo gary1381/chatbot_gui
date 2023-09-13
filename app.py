@@ -75,9 +75,11 @@ def main():
             # r = requests.post(url, data=r)
             response = requests.request("post", url, data=data_json)
 
-            # r = response.json()
-            r = json.loads(response.content.decode("utf-8"))
-            print("response_data: ", r)
+            # print("response_data 1: ", response)
+
+            r = response.json()
+            # r = json.loads(response["content"].decode("utf-8"))
+            # print("response_data 2: ", r)
 
             st.session_state.messages.append(
                 # {"role": "assistant", "content": r["choices"][0]["message"]["content"]}
@@ -88,7 +90,7 @@ def main():
     with history:
         messages = st.session_state.get('messages', {"content": ""})
         for i, msg in enumerate(messages[:]):
-            print("i, msg: ", i, msg)
+            # print("i, msg: ", i, msg)
             if i % 2 != 0:
                 with st.chat_message("user"):
                     st.markdown(f'{msg["content"]}')
@@ -116,6 +118,6 @@ if key != "hackathon":
 
 else:
     main()
-
+# main()
 
 st.info("Created by Gary Xiao, Shawn Liu, Satyabrata Samal and Jixiong Han from CDS team for Hackathon at Bluestem Brands")
