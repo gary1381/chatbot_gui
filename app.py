@@ -113,7 +113,7 @@ def main():
 st.title("Chatbot Demo for Bluestem Brands")
 
 key = st.text_input("Your Password")
-if key != "hackathon":
+if (key != "hackathon") or (key!="Hackathon"):
     st.error("Please input a valid password")
 
 else:
