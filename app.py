@@ -1,3 +1,4 @@
+# encoding: utf-8
 # A bare bones UI for chatbot using LLAMA-2 or other LLM
 # Created by Gary Xiao
 
@@ -39,17 +40,17 @@ def main():
     history = st.container()
 
     # Change this url if it is changed
-    url = 'https://e4ed-34-70-158-142.ngrok.io/chatbot'
+    url = 'https://3962-34-70-158-142.ngrok.io/chatbot'
     
 
 
     with st.form("Chat"):
         input = st.text_input("You:", "")
         if st.form_submit_button():
-            st.session_state.messages.append({"role": "user", "content": input})
+            st.session_state.messages.append({"role": "user", "text": input})
 
             # Create an on the fly message stack
-            messages = [{"role": "system", "content": st.session_state.primer}]
+            messages = [{"role": "system", "text": st.session_state.primer}]
             messages.extend(
                 st.session_state.messages[-st.session_state.context_length :]
             )
@@ -60,7 +61,7 @@ def main():
             'top_k' : 3,
             'prompt' : input,
             "usage" : {"total_tokens": 300}
-            # "content" : input
+            # "text" : input
             }
 
             # input_data_for_model = {
@@ -75,30 +76,35 @@ def main():
             # r = requests.post(url, data=r)
             response = requests.request("post", url, data=data_json)
 
-            # print("response_data 1: ", response)
-
-            r = response.json()
-            # r = json.loads(response["content"].decode("utf-8"))
-            # print("response_data 2: ", r)
+            print("response_data 1: ", response)
+            try:
+                r = response.json()
+                # r = json.loads(response["text"].decode("utf-8"))
+                print("response_data 2: ", r)
+            except Exception as e:
+                print(e)
+                r = response.decode()
+                # r = response.json()
+                print("response_data 2: ", r)
 
             st.session_state.messages.append(
-                # {"role": "assistant", "content": r["choices"][0]["message"]["content"]}
-                 {"role": "assistant", "content": r["content"]}
+                # {"role": "assistant", "text": r["choices"][0]["message"]["text"]}
+                 {"role": "assistant", "text": r["text"]}
             )
 
     # display message history
     with history:
-        messages = st.session_state.get('messages', {"content": ""})
+        messages = st.session_state.get('messages', {"text": ""})
         for i, msg in enumerate(messages[:]):
             # print("i, msg: ", i, msg)
             if i % 2 != 0:
                 with st.chat_message("user"):
-                    st.markdown(f'{msg["content"]}')
-                # message(msg["content"], is_user=True, key=str(i) + '_user')
+                    st.markdown(f'{msg["text"]}')
+                # message(msg["text"], is_user=True, key=str(i) + '_user')
             else:
                 with st.chat_message("assistant"):
-                    st.markdown(f'{msg["content"]}')
-                # message(msg["content"], is_user=False, key=str(i) + '_ai')
+                    st.markdown(f'{msg["text"]}')
+                # message(msg["text"], is_user=False, key=str(i) + '_ai')
 
 # use streamlit_chat to set avatar styles:
 # supported styles: https://www.dicebear.com/styles
