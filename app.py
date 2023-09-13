@@ -1,7 +1,6 @@
 # A bare bones UI for chatbot using LLAMA-2 or other LLM
 # Created by Gary Xiao
 
-# import openai
 import streamlit as st
 import json
 import requests
@@ -40,7 +39,7 @@ def main():
     history = st.container()
 
     # Change this url if it is changed
-    url = 'https://e94b-34-29-123-139.ngrok.io/chatbot'
+    url = 'https://9ce3-34-70-158-142.ngrok.io/chatbot'
     
 
 
@@ -55,9 +54,7 @@ def main():
                 st.session_state.messages[-st.session_state.context_length :]
             )
 
-            # Call the OpenAI API
-            # r = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-            r = {
+            data = {
             'llm' : "llama-7b-chat",
             'temperature' : 0.3,
             'top_k' : 3,
@@ -73,51 +70,19 @@ def main():
             # json object
             # r = json.loads(json.dumps(r))
 
-            r = json.dumps(r)
+            data_json = json.dumps(data)
 
-            r = requests.post(url, data=r)
-            r = r.json()
+            # r = requests.post(url, data=r)
+            response = requests.request("post", url, data=data_json)
+
+            # r = response.json()
+            r = json.loads(response.content.decode("utf-8"))
             print("response_data: ", r)
-
-            # print("r from llm: ", r)
-            # print("tyep of r: ", type(r))
-            # print(f'r["usage"]', r["usage"])
-            
-            # print(f'r["usage"]["total_tokens"]', r["usage"]["total_tokens"])
-
-            # tokens = r["usage"]["total_tokens"]
-            # cost = round((tokens / 1000) * 0.00, 3)
-            # st.info(f"Message uses {tokens} tokens for a total cost of {cost} cents")
-
-            # this will create additional container below the input area.
-            # with st.expander("Result"):
-            #     st.info("Your Output Response")
-            #     st.write(r)
 
             st.session_state.messages.append(
                 # {"role": "assistant", "content": r["choices"][0]["message"]["content"]}
                  {"role": "assistant", "content": r["content"]}
             )
-
-    # with history:
-    #     for i, message in enumerate(st.session_state.messages):
-    #         # c1, c2 = st.columns([2, 10])
-    #         print("st.columns: ", st.columns)
-
-    #         # with c1:
-           
-    #         with st.chat_message("user"):
-    #             st.write(message["role"])
-    #         # with c2:
-    #         with st.chat_message("assistant"):
-    #             # Lets italisize the messages that are sent in the state
-    #             if (
-    #                 len(st.session_state.messages) - i
-    #                 < st.session_state.context_length + 1
-    #             ):
-    #                 st.markdown(f'_{message["content"]}_')
-    #             else:
-    #                 st.markdown(f'{message["content"]}')
 
     # display message history
     with history:
