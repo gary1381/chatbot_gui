@@ -113,11 +113,12 @@ def main():
 st.title("Chatbot Demo for Bluestem Brands")
 
 key = st.text_input("Your Password")
-if (key != "hackathon") or (key!="Hackathon"):
-    st.error("Please input a valid password")
-
-else:
+if (key == "hackathon") or (key=="Hackathon"):
     main()
+    
+else:
+    st.error("Please input a valid password")
+    
 # main()
 
 st.info("Created by Gary Xiao, Shawn Liu, Satyabrata Samal and Jixiong Han from CDS team for Hackathon at Bluestem Brands")
