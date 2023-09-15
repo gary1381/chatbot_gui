@@ -40,8 +40,8 @@ def main():
     history = st.container()
 
     # Change this url if it is changed
-    url = 'https://f361-34-70-158-142.ngrok.io/chatbot'
-    
+    # url = 'https://ec3f-35-243-134-196.ngrok.io/chatbot'
+    url = "https://3b7d-35-197-144-204.ngrok.io/chatbot_qa"
 
 
     with st.form("Chat"):
@@ -60,7 +60,7 @@ def main():
             'temperature' : 0.3,
             'top_k' : 3,
             'prompt' : input,
-            "usage" : {"total_tokens": 300}
+            # "usage" : {"total_tokens": 300}
             # "content" : input
             }
 
