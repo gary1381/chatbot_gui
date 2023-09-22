@@ -41,7 +41,7 @@ def main():
 
     # Change this url if it is changed
     # url = 'https://ec3f-35-243-134-196.ngrok.io/chatbot'
-    url = "https://3aaf-35-199-181-107.ngrok.io/chatbot_qa"
+    url = "https://4f2a-35-199-181-107.ngrok.io/chatbot_qa"
 
 
     with st.form("Chat"):
